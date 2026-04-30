@@ -1,0 +1,50 @@
+// Internal terminal-native editor/agent workflow.
+//
+// Start with:
+//   zellij --layout dev
+//   zellij --layout dev-codex
+//
+// Fast keys:
+//   Alt-h/j/k/l  move focus
+//   Alt-m        enter move mode; use arrows or h/j/k/l, Enter/Esc to exit
+//   Alt-r        enter resize mode; use +/- to resize, arrows or h/j/k/l to change focus, Enter/Esc to exit
+//   Alt-o        next pane
+//   Alt-i        previous pane
+//   Alt-f        fullscreen focused pane
+//   Alt-a        hide/show other tiled panes around the focused pane
+//   Alt-y        cycle workspace layouts
+//   Alt-e        move focused pane between tiled and floating
+//   Alt-t        show/hide floating panels
+
+default_layout "dev"
+pane_frames false
+
+keybinds {
+    resize clear-defaults=true {
+        bind "Enter" "Esc" "Ctrl n" { SwitchToMode "Normal"; }
+        bind "=" "+" { Resize "Increase"; }
+        bind "-" "_" { Resize "Decrease"; }
+        bind "h" "Left" { MoveFocus "Left"; }
+        bind "j" "Down" { MoveFocus "Down"; }
+        bind "k" "Up" { MoveFocus "Up"; }
+        bind "l" "Right" { MoveFocus "Right"; }
+    }
+
+    shared_except "locked" {
+        bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
+        bind "Alt j" "Alt Down" { MoveFocus "Down"; }
+        bind "Alt k" "Alt Up" { MoveFocus "Up"; }
+        bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
+        bind "Alt m" { SwitchToMode "Move"; }
+        bind "Alt r" { SwitchToMode "Resize"; }
+        bind "Alt o" { FocusNextPane; }
+        bind "Alt i" { FocusPreviousPane; }
+        bind "Alt f" { ToggleFocusFullscreen; }
+        bind "Alt a" { ToggleFocusFullscreen; }
+        bind "Alt y" { NextSwapLayout; }
+        bind "Alt e" { TogglePaneEmbedOrFloating; }
+        bind "Alt t" { ToggleFloatingPanes; }
+        bind "Alt n" { GoToNextTab; }
+        bind "Alt p" { GoToPreviousTab; }
+    }
+}

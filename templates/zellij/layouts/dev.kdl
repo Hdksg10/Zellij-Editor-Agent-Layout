@@ -1,0 +1,80 @@
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="tab-bar"
+        }
+        children
+        pane size=1 borderless=true {
+            plugin location="status-bar"
+        }
+    }
+
+    tab name="dev" focus=true {
+        pane split_direction="vertical" {
+            pane size="72%" name="nvim" focus=true command="zsh" {
+                args "-lc" "if command -v nvim >/dev/null 2>&1; then exec nvim; else echo 'nvim is not installed or not on PATH.'; echo 'Install it, then restart this layout.'; exec zsh; fi"
+            }
+            pane size="28%" name="agent" command="zsh" {
+                args "-lc" "if command -v opencode >/dev/null 2>&1; then exec opencode; elif command -v codex >/dev/null 2>&1; then exec codex; else echo 'Neither opencode nor codex was found on PATH.'; echo 'Install one of them, then restart this layout.'; exec zsh; fi"
+            }
+        }
+
+        floating_panes {
+            pane name="lazygit" x="67%" y=2 width="32%" height="42%" command="zsh" {
+                args "-lc" "if command -v lazygit >/dev/null 2>&1; then exec lazygit; else echo 'lazygit is not installed or not on PATH.'; exec zsh; fi"
+            }
+            pane name="shell" x="67%" y="47%" width="32%" height="42%" command="zsh"
+        }
+    }
+
+    swap_tiled_layout name="editor-agent" {
+        tab {
+            pane split_direction="vertical" {
+                pane size="72%"
+                pane size="28%"
+            }
+        }
+    }
+
+    swap_tiled_layout name="editor-sidebar" {
+        tab {
+            pane split_direction="vertical" {
+                pane size="68%"
+                pane size="32%"
+            }
+        }
+    }
+
+    swap_tiled_layout name="balanced" {
+        tab {
+            pane split_direction="vertical" {
+                pane size="50%"
+                pane size="50%"
+            }
+        }
+    }
+
+    swap_tiled_layout name="editor-two-right" {
+        tab {
+            pane split_direction="vertical" {
+                pane size="68%"
+                pane size="32%" split_direction="horizontal" {
+                    pane size="50%"
+                    pane size="50%"
+                }
+            }
+        }
+    }
+
+    swap_tiled_layout name="editor-bottom-right" {
+        tab {
+            pane split_direction="horizontal" {
+                pane size="70%" split_direction="vertical" {
+                    pane size="68%"
+                    pane size="32%"
+                }
+                pane size="30%"
+            }
+        }
+    }
+}
